@@ -8,7 +8,7 @@ const app = express()
 app.locals.version = require('./package.json').version
 app.set('trust proxy', true)
 
-router.get('/health', async (_req, res) => {
+app.get('/health', async (_req, res) => {
     res.json({'message':'OK'});
 });
 
