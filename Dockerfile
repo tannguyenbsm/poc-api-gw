@@ -17,7 +17,9 @@ WORKDIR /app
 COPY --from=builder /app/ .
 
 ADD . .
+ARG USER_SERVICE_API_BASE
 
+ENV USER_SERVICE_API_BASE=$USER_SERVICE_API_BASE
 # Expose the port your app will run on
 EXPOSE 80
 
