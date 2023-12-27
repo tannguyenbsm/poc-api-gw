@@ -18,7 +18,7 @@ app.get('/', async (req, res) => {
     const elbIP = req.socket.remoteAddress
     const dockerIP = req.socket.localAddress
     const dockerName = os.hostname()
-    const service = 'API Gateway service v2'
+    const service = 'API Gateway service v3'
     console.log('Service hit');
 
     res.json({ ...result, clientIP, elbIP, dockerIP, dockerName, service })
