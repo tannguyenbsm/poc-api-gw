@@ -14,29 +14,28 @@ app.get('/health', async (_req, res) => {
 });
 
 app.get('/', async (req, res) => {
-    let result = { error: null }
-    const clientIP = req.headers['x-forwarded-for']
-    const elbIP = req.socket.remoteAddress
-    const dockerIP = req.socket.localAddress
-    const dockerName = os.hostname()
-    const service = 'API Gateway service v3'
-    console.log('Service hit');
-    let user = null;
-
     try {
+        let result = { error: null }
+        const clientIP = req.headers['x-forwarded-for']
+        const elbIP = req.socket.remoteAddress
+        const dockerIP = req.socket.localAddress
+        const dockerName = os.hostname()
+        const service = 'API Gateway service v4'
+        console.log('Service hit');
+        let user = null;
+
         const userResponse = await axios.get(process.env.USER_SERVICE_API_BASE)
         const userData = await userResponse.json();
         user = {
             url: process.env.TRE_SERVICE_API_BASE,
             data: userData,
         }
+        res.json({ ...result, clientIP, elbIP, dockerIP, dockerName, service, user })
     } catch (error) {
+        console.log(error);
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
             user = error.response.data
           } else if (error.request) {
             // The request was made but no response was received
@@ -49,9 +48,9 @@ app.get('/', async (req, res) => {
             console.log('Error', error.message);
             user = error.message
           }
-    }
 
-    res.json({ ...result, clientIP, elbIP, dockerIP, dockerName, service, user })
+          res.json({ user })
+    }
 })
 
 app.listen(PORT, () => {
