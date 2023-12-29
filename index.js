@@ -14,14 +14,18 @@ app.get('/health', async (_req, res) => {
 });
 
 app.get('/', async (req, res) => {
+    res.json({"message": "OK"})
+})
+
+app.get('/user', async (_req, res) {
     try {
         let result = { error: null }
         const clientIP = req.headers['x-forwarded-for']
         const elbIP = req.socket.remoteAddress
         const dockerIP = req.socket.localAddress
         const dockerName = os.hostname()
-        const service = 'API Gateway service v4'
-        console.log('Service hit');
+        const service = 'API Gateway service v5'
+        console.log('Service hit', process.env);
         let user = null;
 
         const userResponse = await axios.get(process.env.USER_SERVICE_API_BASE)
