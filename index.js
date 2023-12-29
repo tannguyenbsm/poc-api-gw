@@ -17,7 +17,7 @@ app.get('/', async (req, res) => {
     res.json({"message": "OK"})
 })
 
-app.get('/user', async (_req, res) {
+app.get('/user', async (_req, res) => {
     try {
         let result = { error: null }
         const clientIP = req.headers['x-forwarded-for']
