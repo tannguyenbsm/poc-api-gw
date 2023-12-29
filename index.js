@@ -13,18 +13,18 @@ app.get('/health', async (_req, res) => {
     res.json({ 'message': 'OK' });
 });
 
-app.get('/', async (req, res) => {
+app.get('/test', async (req, res) => {
     res.json({"message": "OK"})
 })
 
-app.get('/user', async (_req, res) => {
+app.get('/user', async (req, res) => {
     try {
         let result = { error: null }
         const clientIP = req.headers['x-forwarded-for']
         const elbIP = req.socket.remoteAddress
         const dockerIP = req.socket.localAddress
         const dockerName = os.hostname()
-        const service = 'API Gateway service v5'
+        const service = 'API Gateway service v6'
         console.log('Service hit', process.env);
         let user = null;
 
