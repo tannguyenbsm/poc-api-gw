@@ -25,11 +25,12 @@ app.get('/user', async (req, res) => {
         const dockerIP = req.socket.localAddress
         const dockerName = os.hostname()
         const service = 'API Gateway service v6'
-        console.log('Service hit', process.env);
+        console.log('Service hit');
         let user = null;
 
         const userResponse = await axios.get(`http://${process.env.USER_SERVICE_API_BASE}`)
-        const userData = await userResponse.json();
+        console.log(userResponse, 'userResponse');
+        const userData = await userResponse.data;
         user = {
             url: process.env.TRE_SERVICE_API_BASE,
             data: userData,
