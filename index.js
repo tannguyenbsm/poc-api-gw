@@ -28,7 +28,7 @@ app.get('/user', async (req, res) => {
         console.log('Service hit', process.env);
         let user = null;
 
-        const userResponse = await axios.get(process.env.USER_SERVICE_API_BASE)
+        const userResponse = await axios.get(`http://${process.env.USER_SERVICE_API_BASE}`)
         const userData = await userResponse.json();
         user = {
             url: process.env.TRE_SERVICE_API_BASE,
