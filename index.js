@@ -10,7 +10,6 @@ app.locals.version = require('./package.json').version
 app.set('trust proxy', true)
 
 app.get('/health', async (_req, res) => {
-    console.log('ping');
     res.json({ 'message': 'OK' });
 });
 
