@@ -11,6 +11,8 @@ RUN npm install
 # Stage 2: Create the final image
 FROM --platform=linux/amd64 node:14-alpine
 
+RUN apk --no-cache add curl
+
 WORKDIR /app
 
 # Copy only the necessary files from the builder stage
