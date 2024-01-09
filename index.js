@@ -24,7 +24,7 @@ app.get('/user', async (req, res) => {
         const elbIP = req.socket.remoteAddress
         const dockerIP = req.socket.localAddress
         const dockerName = os.hostname()
-        const service = 'API Gateway service v6'
+        const service = 'API Gateway service v7'
         console.log('Service hit');
         let user = null;
 
@@ -37,7 +37,7 @@ app.get('/user', async (req, res) => {
         }
         res.json({ ...result, clientIP, elbIP, dockerIP, dockerName, service, user })
     } catch (error) {
-        console.log(error);
+        console.log(JSON.stringify(error));
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -46,11 +46,9 @@ app.get('/user', async (req, res) => {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
-            console.log(error.request);
             user = error.request
           } else {
             // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
             user = error.message
           }
 
